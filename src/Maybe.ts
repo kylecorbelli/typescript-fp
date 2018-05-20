@@ -37,9 +37,6 @@ const mapSwitch = <A, B> (f: (val: A) => B, m: Maybe<A>): Maybe<B> => {
       return Nothing()
     case MaybeType.Just:
       return Just(f(m.value))
-    default:
-      const _: never = m
-      throw new Error(_)
   }
 }
 
@@ -57,9 +54,6 @@ const andThenSwitch = <A, B> (f: (val: A) => Maybe<B>, m: Maybe<A>): Maybe<B> =>
       return Nothing()
     case MaybeType.Just:
       return f(m.value)
-    default:
-      const _: never = m
-      throw new Error(_)
   }
 }
 
@@ -77,9 +71,6 @@ const withDefaultSwitch = <T>(defaultVal: T, m: Maybe<T>): T => {
       return defaultVal
     case MaybeType.Just:
       return m.value
-    default:
-      const _: never = m
-      throw new Error(_)
   }
 }
 
