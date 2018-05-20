@@ -1,16 +1,20 @@
 {
-  "name": "typescript-maybe",
-  "version": "0.1.1",
-  "description": "A TypeScript Maybe Type and Module",
-  "main": "src/index.ts",
+  "name": "typescript-fp",
+  "version": "0.2.0",
+  "description": "Functional Programming Utilities and Types, Inspired by Haskell and Elm",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
+    "build": "tsc",
+    "lint": "tslint --project tsconfig.json && npm run tsc-check",
+    "prepublishOnly": "npm run build",
     "test": "jest",
     "test:watch": "jest --watch",
     "tsc-check": "tsc --noEmit"
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/kylecorbelli/typescript-maybe.git"
+    "url": "git+ssh://git@github.com/kylecorbelli/typescript-fp.git"
   },
   "keywords": [
     "typescript",
@@ -23,17 +27,19 @@
   "author": "Kyle Corbelli",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/kylecorbelli/typescript-maybe/issues"
+    "url": "https://github.com/kylecorbelli/typescript-fp/issues"
   },
-  "homepage": "https://github.com/kylecorbelli/typescript-maybe#readme",
+  "homepage": "https://github.com/kylecorbelli/typescript-fp#readme",
   "dependencies": {
     "ramda": "^0.25.0"
   },
   "devDependencies": {
     "@types/jest": "^22.2.3",
-    "@types/ramda": "^0.25.24",
+    "@types/ramda": "^0.25.26",
+    "codecov": "^3.0.2",
     "jest": "^22.4.3",
-    "ts-jest": "^22.4.4",
+    "ts-jest": "^22.4.5",
+    "tslint": "^5.10.0",
     "typescript": "^2.8.3"
   },
   "jest": {
