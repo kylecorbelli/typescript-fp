@@ -3,11 +3,6 @@ import { Dict, HashMap } from './Dict'
 import { Just, Nothing } from './Maybe'
 
 describe('Dict', () => {
-  const list: ReadonlyArray<[ string, boolean ]> = [
-    [ 'true', true ],
-    [ 'false', false ],
-  ]
-
   const hashMap: HashMap<number> = {
     one: 1,
     two: 2,
@@ -39,13 +34,6 @@ describe('Dict', () => {
     })
   })
 
-  describe('fromList', () => {
-    it('creates a new Dict<T> given a list of [ string, T ] tuples', () => {
-      const dict = Dict.fromList(list)
-      expect(dict).toBeInstanceOf(Dict)
-    })
-  })
-
   describe('get', () => {
     const dict = Dict.fromHashMap(hashMap)
     const goodKey: string = 'one'
@@ -60,7 +48,7 @@ describe('Dict', () => {
 
     describe('when the key/val pair does NOT exist in the Dict for the provided key', () => {
       it('returns a Nothing', () => {
-        const result: Nothing = Dict.get(badKey, dict) as Nothing
+        const result: Nothing = Dict.get(badKey)(dict) as Nothing
         expect(result).not.toHaveProperty('value')
       })
     })
@@ -102,7 +90,7 @@ describe('Dict', () => {
     describe('when the Dict does NOT have a key/val pair corresponding to the provided key', () => {
       it('returns false', () => {
         const dict: Dict<string> = Dict.empty()
-        const result: boolean = Dict.member(key, dict)
+        const result: boolean = Dict.member(key)(dict)
         expect(result).toBe(false)
       })
     })
@@ -125,7 +113,7 @@ describe('Dict', () => {
     describe('when the provided key does NOT exist in the provided Dict', () => {
       it('leaves the Dict unaltered', () => {
         const dict: Dict<string> = Dict.empty()
-        const updatedDict = Dict.update(mrPB, toUpper, dict)
+        const updatedDict = Dict.update(mrPB, toUpper)(dict)
         expect(updatedDict).toEqual(dict)
       })
     })
@@ -138,7 +126,7 @@ describe('Dict', () => {
         const sanityCheck = Dict.get(mrPB, dict) as Just<string>
         expect(sanityCheck).toHaveProperty('value')
 
-        const updatedDict = Dict.remove(mrPB, dict)
+        const updatedDict = Dict.remove(mrPB)(dict)
         const result = Dict.get(mrPB, updatedDict)
         expect(result).not.toHaveProperty('value')
       })
