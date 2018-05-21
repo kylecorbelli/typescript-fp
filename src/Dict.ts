@@ -1,6 +1,28 @@
+import { curry } from 'ramda'
 import { Maybe } from './Maybe'
 
-// i can probably write a pretty mean curry2 type and function
+const add = (a: number, b: number): number =>
+  a + b
+
+interface CurriedFunction2<A, B, C> {
+  (a: A, b: B): C
+  (a: A): (b: B) => C
+}
+
+const curry2 = <A, B, C>(f: (a: A, b: B) => C): CurriedFunction2<A, B, C> => {
+  function curriedFunction (first: A, second: B): C
+  function curriedFunction (first: A): (second: B) => C
+  function curriedFunction (first: A, second?: B) {
+    return second === undefined
+      ? (s: B): C => f(first, s)
+      : f(first, second)
+  }
+  return curriedFunction
+}
+
+const curriedAdd = curry2(add)
+const nudderCurredAdd = curry<number, number, number>(add)
+const add4 = nudderCurredAdd(4)
 
 export interface HashMap<T> {
   [key: string]: T
